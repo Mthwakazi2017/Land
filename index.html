@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 100%;
+            height: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .title_map{
+            text-align: center;
+            background-color: skyblue;
+
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <!--
+        <div class="title_map">
+            <h2>Cape Town CBD Land Managenement</h2>
+        </div>
+        -->
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Cape_Town_CBD_1.js"></script>
+        <script src="data/CCT_BUILDINGS_2.js"></script>
+        <script src="data/LAND_PARCELS_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_Cape_Town_CBD_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DSCR'] !== null ? autolinker.link(feature.properties['DSCR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_STAr'] !== null ? autolinker.link(feature.properties['Shape_STAr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_STLe'] !== null ? autolinker.link(feature.properties['Shape_STLe'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ShapeSTAre'] !== null ? autolinker.link(feature.properties['ShapeSTAre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ShapeSTLen'] !== null ? autolinker.link(feature.properties['ShapeSTLen'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Cape_Town_CBD_1_0() {
+            return {
+                pane: 'pane_Cape_Town_CBD_1',
+                opacity: 1,
+                color: 'rgba(228,26,28,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Cape_Town_CBD_1');
+        map.getPane('pane_Cape_Town_CBD_1').style.zIndex = 401;
+        map.getPane('pane_Cape_Town_CBD_1').style['mix-blend-mode'] = 'normal';
+        var layer_Cape_Town_CBD_1 = new L.geoJson(json_Cape_Town_CBD_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Cape_Town_CBD_1',
+            layerName: 'layer_Cape_Town_CBD_1',
+            pane: 'pane_Cape_Town_CBD_1',
+            onEachFeature: pop_Cape_Town_CBD_1,
+            style: style_Cape_Town_CBD_1_0,
+        });
+        bounds_group.addLayer(layer_Cape_Town_CBD_1);
+        map.addLayer(layer_Cape_Town_CBD_1);
+        function pop_CCT_BUILDINGS_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADR'] !== null ? autolinker.link(feature.properties['ADR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SBRB'] !== null ? autolinker.link(feature.properties['SBRB'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BLDG_USG'] !== null ? autolinker.link(feature.properties['BLDG_USG'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CCT_BUILDINGS_2_0() {
+            return {
+                pane: 'pane_CCT_BUILDINGS_2',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(61,128,53,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(84,176,74,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_CCT_BUILDINGS_2');
+        map.getPane('pane_CCT_BUILDINGS_2').style.zIndex = 402;
+        map.getPane('pane_CCT_BUILDINGS_2').style['mix-blend-mode'] = 'normal';
+        var layer_CCT_BUILDINGS_2 = new L.geoJson(json_CCT_BUILDINGS_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CCT_BUILDINGS_2',
+            layerName: 'layer_CCT_BUILDINGS_2',
+            pane: 'pane_CCT_BUILDINGS_2',
+            onEachFeature: pop_CCT_BUILDINGS_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_CCT_BUILDINGS_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CCT_BUILDINGS_2);
+        map.addLayer(layer_CCT_BUILDINGS_2);
+        function pop_LAND_PARCELS_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OFC_SBRB_N'] !== null ? autolinker.link(feature.properties['OFC_SBRB_N'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADR_NO'] !== null ? autolinker.link(feature.properties['ADR_NO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ADR_NO_SFX</strong><br />' + (feature.properties['ADR_NO_SFX'] !== null ? autolinker.link(feature.properties['ADR_NO_SFX'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STR_NAME'] !== null ? autolinker.link(feature.properties['STR_NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LU_STR_NAM'] !== null ? autolinker.link(feature.properties['LU_STR_NAM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALT_NAME'] !== null ? autolinker.link(feature.properties['ALT_NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LU_LGL_STS'] !== null ? autolinker.link(feature.properties['LU_LGL_STS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PRTY_NMBR'] !== null ? autolinker.link(feature.properties['PRTY_NMBR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ZONING'] !== null ? autolinker.link(feature.properties['ZONING'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUB_CNCL_N'] !== null ? autolinker.link(feature.properties['SUB_CNCL_N'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPESTAre'] !== null ? autolinker.link(feature.properties['SHAPESTAre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPESTLen'] !== null ? autolinker.link(feature.properties['SHAPESTLen'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? autolinker.link(feature.properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LAND_PARCELS_3_0() {
+            return {
+                pane: 'pane_LAND_PARCELS_3',
+                opacity: 1,
+                color: 'rgba(30,25,227,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_LAND_PARCELS_3');
+        map.getPane('pane_LAND_PARCELS_3').style.zIndex = 403;
+        map.getPane('pane_LAND_PARCELS_3').style['mix-blend-mode'] = 'normal';
+        var layer_LAND_PARCELS_3 = new L.geoJson(json_LAND_PARCELS_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LAND_PARCELS_3',
+            layerName: 'layer_LAND_PARCELS_3',
+            pane: 'pane_LAND_PARCELS_3',
+            onEachFeature: pop_LAND_PARCELS_3,
+            style: style_LAND_PARCELS_3_0,
+        });
+        bounds_group.addLayer(layer_LAND_PARCELS_3);
+        map.addLayer(layer_LAND_PARCELS_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/LAND_PARCELS_3.png" /> LAND_PARCELS': layer_LAND_PARCELS_3,'<img src="legend/CCT_BUILDINGS_2.png" /> CCT_BUILDINGS': layer_CCT_BUILDINGS_2,'<img src="legend/Cape_Town_CBD_1.png" /> Cape_Town_CBD': layer_Cape_Town_CBD_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
